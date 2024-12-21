@@ -10,6 +10,8 @@ defmodule LiveviewFaster.Products.Product do
     field :price, :decimal
     field :image_url, :string
 
-    belongs_to :subcategory, LiveviewFaster.Categories.Subcategory, foreign_key: :subcategory_slug
+    belongs_to :subcategory, LiveviewFaster.Categories.Subcategory,
+      foreign_key: :subcategory_slug,
+      type: :string
   end
 end

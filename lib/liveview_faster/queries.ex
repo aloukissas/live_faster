@@ -2,8 +2,8 @@ defmodule LiveviewFaster.Queries do
   import Ecto.Query, only: [from: 2]
 
   alias LiveviewFaster.Repo
-  alias LiveviewFaster.Categories.Category
-  alias LiveviewFaster.Collections.Collection
+  alias LiveviewFaster.Categories.{Category, Subcategory}
+  alias LiveviewFaster.Collections.{Collection, Subcollection}
   alias LiveviewFaster.Products.Product
 
   @doc """
@@ -50,12 +50,18 @@ defmodule LiveviewFaster.Queries do
   @doc """
   Get category details by slug.
 
-  Returns a `Category` struct, preloaded with subcollections and their subcategories.
+  Returns a list of `Category` structs, preloaded with collections and their subcategories.
   """
-  @spec get_category_details(category_slug :: String.t()) :: Category.t() | nil
+  @spec get_category_details(category_slug :: String.t()) :: list(Category.t())
   def get_category_details(category_slug) do
     # TODO: add cache for 2 hours
-    Repo.get_by(Category, slug: category_slug, preload: [subcollections: :subcategories])
+    # mark: this is problematic, check usage
+    from(c in Category,
+      where: c.slug == ^category_slug,
+      preload: [:collections],
+      order_by: [asc: c.slug]
+    )
+    |> Repo.all()
   end
 
   @doc """
@@ -67,7 +73,12 @@ defmodule LiveviewFaster.Queries do
   def get_collection_details(collection_slug) do
     # TODO: add cache for 2 hours
     # mark: check whether this should return a list or single struct
-    Repo.get_by(Collection, slug: collection_slug, preload: [:categories], order_by: [asc: :slug])
+    from(c in Collection,
+      where: c.slug == ^collection_slug,
+      preload: [:categories],
+      order_by: [asc: :slug]
+    )
+    |> Repo.one()
   end
 
   @doc """

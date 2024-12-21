@@ -1,6 +1,8 @@
 defmodule LiveviewFaster.Collections.Collection do
   use Ecto.Schema
 
+  alias LiveviewFaster.Categories.Category
+
   @primary_key {:id, :integer, []}
   @type t :: %__MODULE__{}
 
@@ -8,6 +10,6 @@ defmodule LiveviewFaster.Collections.Collection do
     field :name, :string
     field :slug, :string
 
-    has_many :categories, LiveviewFaster.Categories.Category
+    has_many :categories, Category
   end
 end
