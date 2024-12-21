@@ -14,7 +14,11 @@ defmodule LiveviewFaster.Queries do
   @spec get_collections() :: list(Collection.t())
   def get_collections do
     # TODO: add cache for 2 hours
-    Repo.all(Collection, preload: [:categories], order_by: [asc: :name])
+    from(c in Collection,
+      preload: [:categories],
+      order_by: [asc: c.name]
+    )
+    |> Repo.all()
   end
 
   @doc """
