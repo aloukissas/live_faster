@@ -3,7 +3,7 @@ defmodule LiveFasterWeb.SubcategoryLive do
 
   alias LiveFaster.Queries
 
-  @impl true
+  @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
     <div class="container mx-auto p-4">
@@ -28,7 +28,7 @@ defmodule LiveFasterWeb.SubcategoryLive do
     """
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(
         %{"category_slug" => category_slug, "subcategory_slug" => subcategory_slug},
         _session,

@@ -1,7 +1,7 @@
 defmodule LiveFasterWeb.CollectionSidebar do
   use LiveFasterWeb, :live_component
 
-  @impl true
+  @impl Phoenix.LiveComponent
   def render(assigns) do
     ~H"""
     <aside class="fixed left-0 hidden w-64 min-w-64 max-w-64 overflow-y-auto border-r p-4 md:block">
@@ -22,7 +22,7 @@ defmodule LiveFasterWeb.CollectionSidebar do
     """
   end
 
-  @impl true
+  @impl Phoenix.LiveComponent
   def mount(socket) do
     collections = LiveFaster.Queries.get_collections()
     {:ok, assign(socket, :collections, collections)}

@@ -3,7 +3,7 @@ defmodule LiveFasterWeb.ProductLive do
 
   alias LiveFaster.Queries
 
-  @impl true
+  @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
     <div class="container p-4">
@@ -50,7 +50,7 @@ defmodule LiveFasterWeb.ProductLive do
     """
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(
         %{"category_slug" => category_slug, "product_slug" => product_slug},
         _session,
@@ -68,7 +68,7 @@ defmodule LiveFasterWeb.ProductLive do
      |> assign(product_price: product_price)}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_params(%{"product_slug" => product_slug}, _uri, socket) do
     product = Queries.get_product_details(product_slug)
     related_products = Queries.get_products_by_subcategory(product.subcategory_slug)

@@ -3,7 +3,7 @@ defmodule LiveFasterWeb.CollectionLive do
 
   alias LiveFaster.Queries
 
-  @impl true
+  @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
     <div class="w-full p-4">
@@ -32,14 +32,14 @@ defmodule LiveFasterWeb.CollectionLive do
     """
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(%{"collection_slug" => collection_slug}, _session, socket) do
     collections_for_slug = Queries.get_collection_details(collection_slug)
 
     {:ok, assign(socket, collections_for_slug: collections_for_slug)}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_params(%{"collection_slug" => collection_slug}, _uri, socket) do
     collections_for_slug = Queries.get_collection_details(collection_slug)
     {:noreply, assign(socket, collections_for_slug: collections_for_slug)}

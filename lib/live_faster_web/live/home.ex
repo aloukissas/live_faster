@@ -3,7 +3,7 @@ defmodule LiveFasterWeb.HomeLive do
 
   alias LiveFaster.Queries
 
-  @impl true
+  @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
     <div class="w-full p-4">
@@ -36,7 +36,7 @@ defmodule LiveFasterWeb.HomeLive do
     """
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     product_count = Queries.get_product_count()
     collections = Queries.get_collections()

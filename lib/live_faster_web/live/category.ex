@@ -3,7 +3,7 @@ defmodule LiveFasterWeb.CategoryLive do
 
   alias LiveFaster.Queries
 
-  @impl true
+  @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
     <div class="container p-4">
@@ -47,7 +47,7 @@ defmodule LiveFasterWeb.CategoryLive do
     """
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(%{"category_slug" => category_slug}, _session, socket) do
     category = Queries.get_category_details(category_slug)
     category_product_count = Queries.get_category_product_count(category_slug)
