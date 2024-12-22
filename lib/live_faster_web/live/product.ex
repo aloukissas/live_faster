@@ -62,6 +62,7 @@ defmodule LiveFasterWeb.ProductLive do
 
     {:ok,
      socket
+     |> assign(page_title: "#{product.name} | LiveFaster")
      |> assign(product: product)
      |> assign(related_products: related_products)
      |> assign(category_slug: category_slug)
@@ -76,6 +77,7 @@ defmodule LiveFasterWeb.ProductLive do
 
     {:noreply,
      socket
+     |> assign(page_title: "#{product.name} | LiveFaster")
      |> assign(product: product)
      |> assign(related_products: related_products)
      |> assign(product_price: product_price)}

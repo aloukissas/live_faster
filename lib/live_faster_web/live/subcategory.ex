@@ -40,6 +40,7 @@ defmodule LiveFasterWeb.SubcategoryLive do
 
     {:ok,
      socket
+     |> assign(page_title: "#{subcategory.name} | LiveFaster")
      |> assign(category_slug: category_slug)
      |> assign(subcategory: subcategory)
      |> assign(subcategory_product_count: subcategory_product_count)

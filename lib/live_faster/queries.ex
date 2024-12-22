@@ -83,9 +83,9 @@ defmodule LiveFaster.Queries do
   @doc """
   Get collection details by slug.
 
-  Returns a list of `Collection` structs, preloaded with categories.
+  Returns a `Collection` struct, preloaded with categories.
   """
-  @spec get_collection_details(collection_slug :: String.t()) :: list(Collection.t())
+  @spec get_collection_details(collection_slug :: String.t()) :: Collection.t() | nil
   @decorate cacheable(
               cache: Cache,
               key: {__MODULE__, :get_collection_details, collection_slug},
@@ -97,7 +97,7 @@ defmodule LiveFaster.Queries do
       preload: [:categories],
       order_by: [asc: :slug]
     )
-    |> Repo.all()
+    |> Repo.one()
   end
 
   @doc """

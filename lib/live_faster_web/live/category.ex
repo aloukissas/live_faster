@@ -54,6 +54,7 @@ defmodule LiveFasterWeb.CategoryLive do
 
     {:ok,
      socket
+     |> assign(page_title: "#{category.name} | LiveFaster")
      |> assign(category: category)
      |> assign(category_product_count: category_product_count)}
   end
