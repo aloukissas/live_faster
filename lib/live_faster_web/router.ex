@@ -17,11 +17,11 @@ defmodule LiveFasterWeb.Router do
   scope "/", LiveFasterWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
-    get "/products/:category_slug", PageController, :category
-    get "/products/:category_slug/:subcategory_slug", PageController, :subcategory
-    get "/products/:category_slug/:subcategory_slug/:product_slug", PageController, :product
-    get "/:collection_slug", PageController, :collection
+    live "/", HomeLive
+    live "/products/:category_slug", CategoryLive
+    live "/products/:category_slug/:subcategory_slug", SubcategoryLive
+    live "/products/:category_slug/:subcategory_slug/:product_slug", ProductLive
+    live "/:collection_slug", CollectionLive
   end
 
   # Other scopes may use custom stacks.
