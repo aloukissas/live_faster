@@ -15,6 +15,7 @@ defmodule LiveviewFasterWeb.PageController do
 
   def category(conn, %{"category_slug" => category_slug}) do
     # TODO: run these in parallel
+    # TODO: handle 404
     collections = Queries.get_collections()
     category = Queries.get_category_details(category_slug)
     category_product_count = Queries.get_category_product_count(category_slug)
@@ -33,6 +34,7 @@ defmodule LiveviewFasterWeb.PageController do
         "subcategory_slug" => subcategory_slug
       }) do
     # TODO: run these in parallel
+    # TODO: handle 404
     collections = Queries.get_collections()
     subcategory = Queries.get_subcategory_details(subcategory_slug)
     subcategory_product_count = Queries.get_subcategory_product_count(subcategory_slug)
@@ -55,6 +57,8 @@ defmodule LiveviewFasterWeb.PageController do
         "category_slug" => category_slug,
         "subcategory_slug" => subcategory_slug
       }) do
+    # TODO: run these in parallel
+    # TODO: handle 404
     collections = Queries.get_collections()
     product = Queries.get_product_details(product_slug)
     related_products = Queries.get_products_by_subcategory(subcategory_slug)
@@ -73,6 +77,8 @@ defmodule LiveviewFasterWeb.PageController do
   end
 
   def collection(conn, %{"collection_slug" => collection_slug}) do
+    # TODO: run these in parallel
+    # TODO: handle 404
     collections = Queries.get_collections()
     collections_for_slug = Queries.get_collection_details(collection_slug)
 
