@@ -26,7 +26,8 @@ defmodule LiveFasterWeb.CategoryLive do
                 <img
                   loading="eager"
                   decoding="sync"
-                  src={subcategory.image_url || "/placeholder.svg"}
+                  srcset={"#{subcategory.image_url}?w=48&amp;q=65 1x, #{subcategory.image_url}?w=96&amp;q=65 2x"}
+                  src={"#{subcategory.image_url}?w=96&amp;q=65" || "/placeholder.svg"}
                   alt={"A small picture of #{subcategory.name}"}
                   width={48}
                   height={48}

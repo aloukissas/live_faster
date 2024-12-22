@@ -9,8 +9,10 @@ defmodule LiveFasterWeb.CustomComponents do
     >
       <div class="py-2">
         <img
+          loading="eager"
           decoding="sync"
-          src={@product.image_url || "/placeholder.svg?height=48&width=48"}
+          srcset={"#{@product.image_url}?w=48&amp;q=65 1x, #{@product.image_url}?w=96&amp;q=65 2x"}
+          src={"#{@product.image_url}?w=96&amp;q=65" || "/placeholder.svg"}
           alt="A small picture of {@product.name}"
           width={48}
           height={48}

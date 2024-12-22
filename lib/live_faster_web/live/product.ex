@@ -15,7 +15,8 @@ defmodule LiveFasterWeb.ProductLive do
           <img
             loading="eager"
             decoding="sync"
-            src={@product.image_url || "/placeholder.svg?height=64&width=64"}
+            srcset={"#{@product.image_url}?w=256&amp;q=80 1x, #{@product.image_url}?w=640&amp;q=80 2x"}
+            src={"#{@product.image_url}?w=640&amp;q=80" || "/placeholder.svg"}
             alt={"A small picture of #{@product.name}"}
             height={256}
             quality={80}
