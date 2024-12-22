@@ -67,4 +67,17 @@ defmodule LiveFasterWeb.ProductLive do
      |> assign(category_slug: category_slug)
      |> assign(product_price: product_price)}
   end
+
+  @impl true
+  def handle_params(%{"product_slug" => product_slug}, _uri, socket) do
+    product = Queries.get_product_details(product_slug)
+    related_products = Queries.get_products_by_subcategory(product.subcategory_slug)
+    product_price = product.price |> Decimal.round(2) |> Decimal.to_string()
+
+    {:noreply,
+     socket
+     |> assign(product: product)
+     |> assign(related_products: related_products)
+     |> assign(product_price: product_price)}
+  end
 end

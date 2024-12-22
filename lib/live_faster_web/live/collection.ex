@@ -38,4 +38,10 @@ defmodule LiveFasterWeb.CollectionLive do
 
     {:ok, assign(socket, collections_for_slug: collections_for_slug)}
   end
+
+  @impl true
+  def handle_params(%{"collection_slug" => collection_slug}, _uri, socket) do
+    collections_for_slug = Queries.get_collection_details(collection_slug)
+    {:noreply, assign(socket, collections_for_slug: collections_for_slug)}
+  end
 end
