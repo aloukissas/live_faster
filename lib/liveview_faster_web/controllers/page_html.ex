@@ -10,10 +10,9 @@ defmodule LiveviewFasterWeb.PageHTML do
 
   def product_link(assigns) do
     ~H"""
-    <a
-      prefetch={true}
+    <.link
       class="group flex h-[130px] w-full flex-row border px-4 py-2 hover:bg-gray-100 sm:w-[250px]"
-      href={"/products/#{@category_slug}/#{@subcategory_slug}/#{@product.slug}"}
+      href={~p"/products/#{@category_slug}/#{@subcategory_slug}/#{@product.slug}"}
     >
       <div class="py-2">
         <img
@@ -33,7 +32,7 @@ defmodule LiveviewFasterWeb.PageHTML do
         </div>
         <p class="overflow-hidden text-xs">{@product.description}</p>
       </div>
-    </a>
+    </.link>
     """
   end
 end

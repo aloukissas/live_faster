@@ -2,12 +2,10 @@
   <div :for={collection <- @collections_for_slug}>
     <h2 class="text-xl font-semibold">{collection.name}</h2>
     <div class="flex flex-row flex-wrap justify-center gap-2 border-b-2 py-4 sm:justify-start">
-      <a
+      <.link
         :for={category <- collection.categories}
-        prefetch={true}
-        key={category.name}
         class="flex w-[125px] flex-col items-center text-center"
-        href={"/products/#{category.slug}"}
+        href={~p"/products/#{category.slug}"}
       >
         <img
           decoding="sync"
@@ -19,7 +17,7 @@
           quality={65}
         />
         <span class="text-xs">{category.name}</span>
-      </a>
+      </.link>
     </div>
   </div>
 </div>

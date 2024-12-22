@@ -5,13 +5,12 @@
     </h2>
     <ul class="flex flex-col items-start justify-center">
       <li :for={collection <- @collections} class="w-full">
-        <a
-          prefetch={true}
-          href={"/#{collection.slug}"}
+        <.link
+          href={~p"/#{collection.slug}"}
           class="block w-full py-1 text-xs text-gray-800 hover:bg-accent2 hover:underline"
         >
           {collection.name}
-        </a>
+        </.link>
       </li>
     </ul>
   </aside>
