@@ -59,18 +59,18 @@ function prefetchPage(url) {
   };
 }
 
-document.querySelectorAll("a").forEach((link) => {
-  let timer;
+// document.querySelectorAll("a").forEach((link) => {
+//   let timer;
 
-  link.addEventListener("mouseenter", () => {
-    // Start a timer to avoid prefetching on quick hover-bys
-    timer = setTimeout(() => {
-      prefetchPage(link.href);
-    }, 100);
-  });
+//   link.addEventListener("mouseenter", () => {
+//     // Start a timer to avoid prefetching on quick hover-bys
+//     timer = setTimeout(() => {
+//       prefetchPage(link.href);
+//     }, 100);
+//   });
 
-  link.addEventListener("mouseleave", () => {
-    // Cancel prefetch if mouse leaves before timer completes
-    clearTimeout(timer);
-  });
-});
+//   link.addEventListener("mouseleave", () => {
+//     // Cancel prefetch if mouse leaves before timer completes
+//     clearTimeout(timer);
+//   });
+// });
