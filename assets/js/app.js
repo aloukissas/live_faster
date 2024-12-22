@@ -43,34 +43,3 @@ liveSocket.connect();
 // >> liveSocket.enableLatencySim(1000)  // enabled for duration of browser session
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket;
-
-function prefetchPage(url) {
-  // Create a hidden iframe to load the page
-  const iframe = document.createElement("iframe");
-  iframe.style.display = "none";
-  iframe.src = url;
-  document.body.appendChild(iframe);
-
-  // Remove the iframe after loading to clean up
-  iframe.onload = () => {
-    setTimeout(() => {
-      document.body.removeChild(iframe);
-    }, 1000); // Give some time for resources to load
-  };
-}
-
-document.querySelectorAll("a").forEach((link) => {
-  let timer;
-
-  link.addEventListener("mouseenter", () => {
-    // Start a timer to avoid prefetching on quick hover-bys
-    timer = setTimeout(() => {
-      prefetchPage(link.href);
-    }, 100);
-  });
-
-  link.addEventListener("mouseleave", () => {
-    // Cancel prefetch if mouse leaves before timer completes
-    clearTimeout(timer);
-  });
-});

@@ -13,5 +13,15 @@
   </head>
   <body class="flex flex-col overflow-y-auto overflow-x-hidden antialiased">
     {@inner_content}
+    <script type="speculationrules">
+      {
+        "prerender": [{
+          "where": {
+            "href_matches": "/*"
+          },
+          "eagerness": "eager"
+        }]
+      }
+    </script>
   </body>
 </html>
