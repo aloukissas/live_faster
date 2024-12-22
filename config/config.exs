@@ -7,19 +7,19 @@
 # General application configuration
 import Config
 
-config :liveview_faster,
-  ecto_repos: [LiveviewFaster.Repo],
+config :live_faster,
+  ecto_repos: [LiveFaster.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
-config :liveview_faster, LiveviewFasterWeb.Endpoint,
+config :live_faster, LiveFasterWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
-    formats: [html: LiveviewFasterWeb.ErrorHTML, json: LiveviewFasterWeb.ErrorJSON],
+    formats: [html: LiveFasterWeb.ErrorHTML, json: LiveFasterWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: LiveviewFaster.PubSub,
+  pubsub_server: LiveFaster.PubSub,
   live_view: [signing_salt: "CyozM1Xx"]
 
 # Configures the mailer
@@ -29,12 +29,12 @@ config :liveview_faster, LiveviewFasterWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :liveview_faster, LiveviewFaster.Mailer, adapter: Swoosh.Adapters.Local
+config :live_faster, LiveFaster.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.17.11",
-  liveview_faster: [
+  live_faster: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
@@ -44,7 +44,7 @@ config :esbuild,
 # Configure tailwind (the version is required)
 config :tailwind,
   version: "3.4.3",
-  liveview_faster: [
+  live_faster: [
     args: ~w(
       --config=tailwind.config.js
       --input=css/app.css
@@ -61,7 +61,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :liveview_faster, LiveviewFaster.Cache,
+config :live_faster, LiveFaster.Cache,
   # When using :shards as backend
   backend: :shards,
   # GC interval for pushing new generation: 12 hrs

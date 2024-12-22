@@ -1,4 +1,4 @@
-defmodule LiveviewFasterWeb.ConnCase do
+defmodule LiveFasterWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,7 +11,7 @@ defmodule LiveviewFasterWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use LiveviewFasterWeb.ConnCase, async: true`, although
+  by setting `use LiveFasterWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -20,19 +20,19 @@ defmodule LiveviewFasterWeb.ConnCase do
   using do
     quote do
       # The default endpoint for testing
-      @endpoint LiveviewFasterWeb.Endpoint
+      @endpoint LiveFasterWeb.Endpoint
 
-      use LiveviewFasterWeb, :verified_routes
+      use LiveFasterWeb, :verified_routes
 
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import LiveviewFasterWeb.ConnCase
+      import LiveFasterWeb.ConnCase
     end
   end
 
   setup tags do
-    LiveviewFaster.DataCase.setup_sandbox(tags)
+    LiveFaster.DataCase.setup_sandbox(tags)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

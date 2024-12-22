@@ -5,23 +5,23 @@ import Config
 # The MIX_TEST_PARTITION environment variable can be used
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
-config :liveview_faster, LiveviewFaster.Repo,
+config :live_faster, LiveFaster.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "liveview_faster_test#{System.get_env("MIX_TEST_PARTITION")}",
+  database: "live_faster_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: System.schedulers_online() * 2
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :liveview_faster, LiveviewFasterWeb.Endpoint,
+config :live_faster, LiveFasterWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
   secret_key_base: "9feRHGctU/4Uy+aSUeuzh2mdFvHRSQWSJ8CAK8J1JfGKbxPAfSLtJ7DCcS2pIUKk",
   server: false
 
 # In test we don't send emails
-config :liveview_faster, LiveviewFaster.Mailer, adapter: Swoosh.Adapters.Test
+config :live_faster, LiveFaster.Mailer, adapter: Swoosh.Adapters.Test
 
 # Disable swoosh api client as it is only required for production adapters
 config :swoosh, :api_client, false

@@ -1,2 +1,2 @@
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(LiveviewFaster.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(LiveFaster.Repo, :manual)

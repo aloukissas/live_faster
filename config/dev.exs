@@ -1,11 +1,11 @@
 import Config
 
 # Configure your database
-config :liveview_faster, LiveviewFaster.Repo,
+config :live_faster, LiveFaster.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "liveview_faster_dev",
+  database: "live_faster_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -16,7 +16,7 @@ config :liveview_faster, LiveviewFaster.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we can use it
 # to bundle .js and .css sources.
-config :liveview_faster, LiveviewFasterWeb.Endpoint,
+config :live_faster, LiveFasterWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],
@@ -25,8 +25,8 @@ config :liveview_faster, LiveviewFasterWeb.Endpoint,
   debug_errors: true,
   secret_key_base: "W0KUS5H7e6GHfo067jkzagx6FcWH6ihhnJDrbfZnkmgLV8zngmCH4xJQzYPimrdm",
   watchers: [
-    esbuild: {Esbuild, :install_and_run, [:liveview_faster, ~w(--sourcemap=inline --watch)]},
-    tailwind: {Tailwind, :install_and_run, [:liveview_faster, ~w(--watch)]}
+    esbuild: {Esbuild, :install_and_run, [:live_faster, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:live_faster, ~w(--watch)]}
   ]
 
 # ## SSL Support
@@ -53,17 +53,17 @@ config :liveview_faster, LiveviewFasterWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :liveview_faster, LiveviewFasterWeb.Endpoint,
+config :live_faster, LiveFasterWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/liveview_faster_web/(controllers|live|components)/.*(ex|heex)$"
+      ~r"lib/live_faster_web/(controllers|live|components)/.*(ex|heex)$"
     ]
   ]
 
 # Enable dev routes for dashboard and mailbox
-config :liveview_faster, dev_routes: true
+config :live_faster, dev_routes: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
