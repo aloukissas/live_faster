@@ -1,10 +1,15 @@
 defmodule LiveviewFaster.Queries do
+  use Nebulex.Caching
+
   import Ecto.Query, only: [from: 2]
 
   alias LiveviewFaster.Repo
+  alias LiveviewFaster.Cache
   alias LiveviewFaster.Categories.{Category, Subcategory}
   alias LiveviewFaster.Collections.{Collection, Subcollection}
   alias LiveviewFaster.Products.Product
+
+  @cache_ttl :timer.hours(2)
 
   @doc """
   Get all collections, preloaded with categories.
@@ -12,8 +17,8 @@ defmodule LiveviewFaster.Queries do
   Returns a list of `Collection` structs, ordered by the `Collection.name` field.
   """
   @spec get_collections() :: list(Collection.t())
+  @decorate cacheable(cache: Cache, key: {__MODULE__, :get_collections}, opts: [ttl: @cache_ttl])
   def get_collections do
-    # TODO: add cache for 2 hours
     from(c in Collection,
       preload: [:categories],
       order_by: [asc: c.name]
@@ -27,8 +32,12 @@ defmodule LiveviewFaster.Queries do
   Returns a list of `Product` structs, ordered by the `Product.slug` field.
   """
   @spec get_products_by_subcategory(subcategory_slug :: String.t()) :: list(Product.t())
+  @decorate cacheable(
+              cache: Cache,
+              key: {__MODULE__, :get_products_by_subcategory, subcategory_slug},
+              opts: [ttl: @cache_ttl]
+            )
   def get_products_by_subcategory(subcategory_slug) do
-    # TODO: add cache for 2 hours
     from(p in Product,
       where: p.subcategory_slug == ^subcategory_slug,
       order_by: [asc: :slug]
@@ -42,8 +51,12 @@ defmodule LiveviewFaster.Queries do
   Returns a `Product` struct.
   """
   @spec get_product_details(product_slug :: String.t()) :: Product.t() | nil
+  @decorate cacheable(
+              cache: Cache,
+              key: {__MODULE__, :get_product_details, product_slug},
+              opts: [ttl: @cache_ttl]
+            )
   def get_product_details(product_slug) do
-    # TODO: add cache for 2 hours
     Repo.get_by(Product, slug: product_slug)
   end
 
@@ -53,9 +66,12 @@ defmodule LiveviewFaster.Queries do
   Returns a list of `Category` structs, preloaded with collections and their subcategories.
   """
   @spec get_category_details(category_slug :: String.t()) :: list(Category.t())
+  @decorate cacheable(
+              cache: Cache,
+              key: {__MODULE__, :get_category_details, category_slug},
+              opts: [ttl: @cache_ttl]
+            )
   def get_category_details(category_slug) do
-    # TODO: add cache for 2 hours
-    # mark: this is problematic, check usage
     from(c in Category,
       where: c.slug == ^category_slug,
       preload: [subcollections: :subcategories],
@@ -70,9 +86,12 @@ defmodule LiveviewFaster.Queries do
   Returns a list of `Collection` structs, preloaded with categories.
   """
   @spec get_collection_details(collection_slug :: String.t()) :: list(Collection.t())
+  @decorate cacheable(
+              cache: Cache,
+              key: {__MODULE__, :get_collection_details, collection_slug},
+              opts: [ttl: @cache_ttl]
+            )
   def get_collection_details(collection_slug) do
-    # TODO: add cache for 2 hours
-    # mark: check whether this should return a list or single struct
     from(c in Collection,
       where: c.slug == ^collection_slug,
       preload: [:categories],
@@ -85,6 +104,11 @@ defmodule LiveviewFaster.Queries do
   Get the total number of products.
   """
   @spec get_product_count() :: non_neg_integer()
+  @decorate cacheable(
+              cache: Cache,
+              key: {__MODULE__, :get_product_count},
+              opts: [ttl: @cache_ttl]
+            )
   def get_product_count do
     Repo.aggregate(Product, :count)
   end
@@ -93,8 +117,12 @@ defmodule LiveviewFaster.Queries do
   Get the total number of products in a category.
   """
   @spec get_category_product_count(category_slug :: String.t()) :: non_neg_integer()
+  @decorate cacheable(
+              cache: Cache,
+              key: {__MODULE__, :get_category_product_count, category_slug},
+              opts: [ttl: @cache_ttl]
+            )
   def get_category_product_count(category_slug) do
-    # TODO: add cache for 2 hours
     from(c in Category,
       where: c.slug == ^category_slug,
       left_join: sc in assoc(c, :subcollections),
@@ -105,6 +133,15 @@ defmodule LiveviewFaster.Queries do
     |> Repo.one()
   end
 
+  @doc """
+  Get subcategory details by slug.
+  """
+  @spec get_subcategory_details(subcategory_slug :: String.t()) :: Subcategory.t() | nil
+  @decorate cacheable(
+              cache: Cache,
+              key: {__MODULE__, :get_subcategory_details, subcategory_slug},
+              opts: [ttl: @cache_ttl]
+            )
   def get_subcategory_details(subcategory_slug) do
     Repo.get_by(Subcategory, slug: subcategory_slug)
   end
@@ -113,8 +150,12 @@ defmodule LiveviewFaster.Queries do
   Get the total number of products in a subcategory.
   """
   @spec get_subcategory_product_count(subcategory_slug :: String.t()) :: non_neg_integer()
+  @decorate cacheable(
+              cache: Cache,
+              key: {__MODULE__, :get_subcategory_product_count, subcategory_slug},
+              opts: [ttl: @cache_ttl]
+            )
   def get_subcategory_product_count(subcategory_slug) do
-    # TODO: add cache for 2 hours
     from(p in Product,
       where: p.subcategory_slug == ^subcategory_slug,
       select: count(p.slug)

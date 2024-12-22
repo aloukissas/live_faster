@@ -14,6 +14,7 @@ defmodule LiveviewFaster.Application do
       {Phoenix.PubSub, name: LiveviewFaster.PubSub},
       # Start the Finch HTTP client for sending emails
       {Finch, name: LiveviewFaster.Finch},
+      LiveviewFaster.Cache,
       # Start a worker by calling: LiveviewFaster.Worker.start_link(arg)
       # {LiveviewFaster.Worker, arg},
       # Start to serve requests, typically the last entry
