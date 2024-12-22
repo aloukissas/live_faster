@@ -1,0 +1,41 @@
+<div class="container p-4">
+  <h1 class="border-t-2 pt-1 text-xl font-bold text-accent1">
+    {@product.name}
+  </h1>
+  <div class="flex flex-col gap-2">
+    <div class="flex flex-row gap-2">
+      <img
+        loading="eager"
+        decoding="sync"
+        src={@product.image_url || "/placeholder.svg?height=64&width=64"}
+        alt={"A small picture of #{@product.name}"}
+        height={256}
+        quality={80}
+        width={256}
+        class="h-56 w-56 flex-shrink-0 border-2 md:h-64 md:w-64"
+      />
+      <p class="flex-grow text-base">{@product.description}</p>
+    </div>
+    <p class="text-xl font-bold">
+      {@product_price}
+    </p>
+    <div>add to cart</div>
+  </div>
+  <div class="pt-8">
+    <%= if length(@related_products) > 0 do %>
+      <h2 class="text-lg font-bold text-accent1">
+        Explore more products
+      </h2>
+    <% end %>
+    <div class="flex flex-row flex-wrap gap-2">
+      <div :for={product <- @related_products}>
+        <.product_link
+          category_slug={@category_slug}
+          subcategory_slug={@subcategory_slug}
+          product={product}
+          imageUrl={product.image_url}
+        />
+      </div>
+    </div>
+  </div>
+</div>

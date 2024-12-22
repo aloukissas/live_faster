@@ -1,8 +1,5 @@
 <div class="w-full p-4">
-  <div class="mb-2 w-full flex-grow border-b-[1px] border-accent1 text-sm font-semibold text-black">
-    Explore {@product_count} products
-  </div>
-  <div :for={collection <- @collections}>
+  <div :for={collection <- @collections_for_slug}>
     <h2 class="text-xl font-semibold">{collection.name}</h2>
     <div class="flex flex-row flex-wrap justify-center gap-2 border-b-2 py-4 sm:justify-start">
       <a
@@ -13,7 +10,6 @@
         href={"/products/#{category.slug}"}
       >
         <img
-          loading="lazy"
           decoding="sync"
           src={category.image_url || "/placeholder.svg"}
           alt={"A small picture of #{category.name}"}

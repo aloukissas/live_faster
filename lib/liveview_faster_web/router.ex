@@ -18,6 +18,10 @@ defmodule LiveviewFasterWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    get "/products/:category_slug", PageController, :category
+    get "/products/:category_slug/:subcategory_slug", PageController, :subcategory
+    get "/products/:category_slug/:subcategory_slug/:product_slug", PageController, :product
+    get "/:collection_slug", PageController, :collection
   end
 
   # Other scopes may use custom stacks.

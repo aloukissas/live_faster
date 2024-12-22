@@ -58,18 +58,18 @@ defmodule LiveviewFaster.Queries do
     # mark: this is problematic, check usage
     from(c in Category,
       where: c.slug == ^category_slug,
-      preload: [:collections],
+      preload: [subcollections: :subcategories],
       order_by: [asc: c.slug]
     )
-    |> Repo.all()
+    |> Repo.one()
   end
 
   @doc """
   Get collection details by slug.
 
-  Returns a `Collection` struct, preloaded with categories.
+  Returns a list of `Collection` structs, preloaded with categories.
   """
-  @spec get_collection_details(collection_slug :: String.t()) :: Collection.t() | nil
+  @spec get_collection_details(collection_slug :: String.t()) :: list(Collection.t())
   def get_collection_details(collection_slug) do
     # TODO: add cache for 2 hours
     # mark: check whether this should return a list or single struct
@@ -78,7 +78,7 @@ defmodule LiveviewFaster.Queries do
       preload: [:categories],
       order_by: [asc: :slug]
     )
-    |> Repo.one()
+    |> Repo.all()
   end
 
   @doc """
@@ -103,6 +103,10 @@ defmodule LiveviewFaster.Queries do
       select: count(p.slug)
     )
     |> Repo.one()
+  end
+
+  def get_subcategory_details(subcategory_slug) do
+    Repo.get_by(Subcategory, slug: subcategory_slug)
   end
 
   @doc """

@@ -1,14 +1,7 @@
-defmodule LiveviewFasterWeb.PageHTML do
-  @moduledoc """
-  This module contains pages rendered by PageController.
+defmodule LiveviewFasterWeb.ProductLink do
+  use Phoenix.Component
 
-  See the `page_html` directory for all templates available.
-  """
-  use LiveviewFasterWeb, :html
-
-  embed_templates "page_html/*"
-
-  def product_link(assigns) do
+  def render(assigns) do
     ~H"""
     <a
       prefetch={true}
@@ -18,7 +11,7 @@ defmodule LiveviewFasterWeb.PageHTML do
       <div class="py-2">
         <img
           decoding="sync"
-          src={@product.image_url || "/placeholder.svg?height=48&width=48"}
+          src={@image_url || "/placeholder.svg?height=48&width=48"}
           alt="A small picture of {@product.name}"
           width={48}
           height={48}
