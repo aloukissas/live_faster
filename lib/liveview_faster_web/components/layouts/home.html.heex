@@ -3,8 +3,8 @@
     <h2 class="border-b border-accent1 text-sm font-semibold text-accent1">
       Choose a Category
     </h2>
-    <ul :for={collection <- @collections} class="flex flex-col items-start justify-center">
-      <li key={collection.slug} class="w-full">
+    <ul class="flex flex-col items-start justify-center">
+      <li :for={collection <- @collections} class="w-full">
         <a
           prefetch={true}
           href={"/#{collection.slug}"}
