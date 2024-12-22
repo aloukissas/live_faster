@@ -8,7 +8,7 @@ defmodule LiveviewFaster.Collections.Subcollection do
   schema "subcollections" do
     field :name, :string
 
-    belongs_to :category, Category, foreign_key: :category_slug, type: :string
+    belongs_to :category, Category, foreign_key: :category_slug, type: :string, references: :slug
     has_many :subcategories, Subcategory
   end
 end

@@ -12,6 +12,7 @@ defmodule LiveviewFaster.Products.Product do
 
     belongs_to :subcategory, LiveviewFaster.Categories.Subcategory,
       foreign_key: :subcategory_slug,
-      type: :string
+      type: :string,
+      references: :slug
   end
 end
