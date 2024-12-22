@@ -21,7 +21,6 @@ defmodule LiveFasterWeb.HomeLive do
             <img
               loading="lazy"
               decoding="sync"
-              srcset={"#{category.image_url}?w=48&amp;q=65 1x, #{category.image_url}?w=96&amp;q=65 2x"}
               src={"#{category.image_url}?w=96&amp;q=65" || "/placeholder.svg"}
               alt={"A small picture of #{category.name}"}
               class="mb-2 h-14 w-14 border hover:bg-accent2"

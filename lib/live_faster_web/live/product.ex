@@ -13,9 +13,8 @@ defmodule LiveFasterWeb.ProductLive do
       <div class="flex flex-col gap-2">
         <div class="flex flex-row gap-2">
           <img
-            loading="eager"
+            loading="lazy"
             decoding="sync"
-            srcset={"#{@product.image_url}?w=256&amp;q=80 1x, #{@product.image_url}?w=640&amp;q=80 2x"}
             src={"#{@product.image_url}?w=640&amp;q=80" || "/placeholder.svg"}
             alt={"A small picture of #{@product.name}"}
             height={256}
